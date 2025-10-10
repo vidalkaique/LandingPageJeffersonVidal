@@ -1,10 +1,10 @@
 # Design Guidelines: Personal Trainer Landing Page
 
 ## Design Approach
-**Reference-Based Approach**: Faithful replication of Mauro Castro's fitness consultancy landing page aesthetic - a high-conversion fitness landing page with bold yellow/gold accents on black background, emphasizing trust, results, and professionalism.
+**Reference-Based Approach**: Faithful replication of Mauro Castro's fitness consultancy landing page aesthetic - a high-conversion fitness landing page with bold red accents on black background, emphasizing trust, results, and professionalism.
 
 ## Core Design Principles
-- **High-Impact Visual Contrast**: Dramatic black backgrounds with vibrant yellow/gold accents for maximum attention
+- **High-Impact Visual Contrast**: Dramatic black backgrounds with vibrant red accents for maximum attention
 - **Trust & Social Proof**: Heavy emphasis on client results, testimonials, and credibility markers
 - **Conversion-Focused**: Clear CTAs throughout, multiple pathways to pricing section
 - **Professional Fitness Aesthetic**: Clean, modern, aspirational yet accessible
@@ -13,13 +13,13 @@
 
 ### Primary Colors
 - **Black Background**: 0 0% 0% - Main background for dramatic impact
-- **Vibrant Yellow/Gold**: 48 100% 50% - Primary accent for CTAs and highlights
+- **Vibrant Red**: 0 100% 50% - Primary accent for CTAs and highlights
 - **Pure White**: 0 0% 100% - Primary text and contrast elements
 
 ### Supporting Colors
 - **WhatsApp Green**: 142 70% 49% - Floating chat button
 - **Dark Gray**: 0 0% 15% - Card backgrounds and subtle variations
-- **Yellow Glow**: 48 100% 50% with blur/shadow effects - Neon-style vertical bars
+- **Red Glow**: 0 100% 50% with blur/shadow effects - Neon-style vertical bars
 
 ## Typography
 

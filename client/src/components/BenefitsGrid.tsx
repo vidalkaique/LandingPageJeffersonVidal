@@ -1,4 +1,4 @@
-import { Smartphone, Dumbbell, Play, MessageCircle } from "lucide-react";
+import { Smartphone, Dumbbell, MessageCircle } from "lucide-react";
 
 const benefits = [
   {
@@ -12,11 +12,6 @@ const benefits = [
     subtitle: "personalizado"
   },
   {
-    icon: Play,
-    title: "Acesso a plataforma",
-    subtitle: "de vídeos"
-  },
-  {
     icon: MessageCircle,
     title: "Suporte Whatsapp",
     subtitle: "para tirar dúvidas"
@@ -27,7 +22,7 @@ export default function BenefitsGrid() {
   return (
     <section className="bg-black py-16">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (

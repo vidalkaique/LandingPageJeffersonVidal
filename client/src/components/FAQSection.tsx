@@ -61,7 +61,7 @@ export default function FAQSection() {
             <p className="text-gray-300 font-openSans">Chame-nos no WhatsApp, estamos a disposição para sanar qualquer dúvida.</p>
             <Button
               variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-8 py-6 text-base font-bold uppercase tracking-wider"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-8 py-4 text-base font-bold uppercase tracking-wider min-h-[56px] flex items-center justify-center"
               data-testid="button-whatsapp-faq"
             >
               SABER MAIS PELO WHATSAPP

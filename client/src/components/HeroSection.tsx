@@ -9,8 +9,8 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen bg-black flex items-center overflow-hidden pt-20">
-      {/* Yellow vertical bars with glow effect */}
+    <section className="relative min-h-screen bg-black flex items-center overflow-hidden">
+      {/* Red vertical bars with glow effect */}
       <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex gap-12 pointer-events-none">
         <div className="w-1 h-full bg-primary blur-sm opacity-60"></div>
         <div className="w-2 h-full bg-primary blur-md opacity-80"></div>
@@ -20,7 +20,7 @@ export default function HeroSection() {
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left content */}
-          <div className="text-white space-y-6">
+          <div className="text-white space-y-6 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat uppercase leading-tight tracking-wide" data-testid="text-hero-title">
               CONSULTORIA FITNESS PERSONALIZADA PARA VOCÊ ALCANÇAR SEUS OBJETIVOS
             </h1>
@@ -29,7 +29,7 @@ export default function HeroSection() {
             </p>
             <Button 
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-6 text-base md:text-lg font-bold uppercase tracking-wider transform hover:scale-105 transition-transform"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-4 text-base md:text-lg font-bold uppercase tracking-wider transform hover:scale-105 transition-transform min-h-[56px] flex items-center justify-center"
               onClick={scrollToPlans}
               data-testid="button-start-now"
             >

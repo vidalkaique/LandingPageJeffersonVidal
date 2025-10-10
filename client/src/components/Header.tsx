@@ -7,7 +7,7 @@ export default function Header() {
         <div className="flex items-center justify-between">
           <div className="bg-white px-6 py-2 rounded-md">
             <h1 className="text-xl md:text-2xl font-bold text-black font-montserrat" data-testid="text-logo">
-              PERSONAL TRAINER
+              JEFFERSON VIDAL
             </h1>
           </div>
         </div>

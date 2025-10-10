@@ -20,23 +20,23 @@ export default function AboutSection() {
             </p>
           </div>
           
-          <div className="space-y-6">
+          <div className="space-y-6 flex flex-col items-center text-center lg:items-start lg:text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-white font-montserrat uppercase" data-testid="text-about-title">
-              QUEM É [NOME DO PERSONAL]?
+              QUEM É JEFFERSON VIDAL?
             </h2>
             
             <div className="space-y-4 text-gray-300 text-lg font-openSans leading-relaxed">
               <p>
-                Sou [Nome]. Proprietário da [Nome da Academia], graduado e licenciado em Educação Física e pós-graduando em Bases Fisiológicas do Treinamento Personalizado e Nutrição Esportiva.
+                Sou Jefferson Vidal, graduado e licenciado em Educação Física com mais de 5 anos de experiência no treinamento personalizado e mais de 100 alunos satisfeitos.
               </p>
               <p className="text-primary font-semibold">
-                Minha missão é sempre ir além do conhecimento técnico. É primordial entender o corpo, a mente, as necessidades e individualidades de cada ser humano.
+                Minha missão é sempre ir além do conhecimento técnico. É primordial entender o corpo, a mente, as necessidades e individualidades de cada ser humano para criar um plano verdadeiramente eficaz.
               </p>
             </div>
 
             <Button 
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-6 text-base md:text-lg font-bold uppercase tracking-wider transform hover:scale-105 transition-transform"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-4 text-base md:text-lg font-bold uppercase tracking-wider transform hover:scale-105 transition-transform min-h-[56px] flex items-center justify-center"
               onClick={scrollToPlans}
               data-testid="button-start-about"
             >

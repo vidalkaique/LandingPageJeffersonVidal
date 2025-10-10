@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import BenefitsGrid from "@/components/BenefitsGrid";
 import ProblemSection from "@/components/ProblemSection";
@@ -15,7 +14,6 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <div className="min-h-screen bg-black">
-      <Header />
       <HeroSection />
       <BenefitsGrid />
       <ProblemSection />
