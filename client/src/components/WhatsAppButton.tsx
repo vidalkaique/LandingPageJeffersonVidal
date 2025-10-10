@@ -1,0 +1,20 @@
+import { MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+export default function WhatsAppButton() {
+  return (
+    <div className="fixed bottom-8 right-8 z-50">
+      <Button
+        size="lg"
+        className="bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full w-16 h-16 p-0 shadow-xl animate-pulse"
+        data-testid="button-whatsapp-float"
+        title="Como posso te ajudar?"
+      >
+        <MessageCircle className="w-8 h-8" />
+      </Button>
+      <div className="absolute -top-12 right-0 bg-[#25D366] text-white px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
+        Como posso te ajudar?
+      </div>
+    </div>
+  );
+}

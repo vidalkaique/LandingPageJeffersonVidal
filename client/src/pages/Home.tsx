@@ -1,0 +1,33 @@
+import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
+import BenefitsGrid from "@/components/BenefitsGrid";
+import ProblemSection from "@/components/ProblemSection";
+import ResultsCarousel from "@/components/ResultsCarousel";
+import ProcessSteps from "@/components/ProcessSteps";
+import TargetAudience from "@/components/TargetAudience";
+import VideoTestimonials from "@/components/VideoTestimonials";
+import PricingCards from "@/components/PricingCards";
+import AboutSection from "@/components/AboutSection";
+import FAQSection from "@/components/FAQSection";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import Footer from "@/components/Footer";
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-black">
+      <Header />
+      <HeroSection />
+      <BenefitsGrid />
+      <ProblemSection />
+      <ResultsCarousel />
+      <ProcessSteps />
+      <TargetAudience />
+      <VideoTestimonials />
+      <PricingCards />
+      <AboutSection />
+      <FAQSection />
+      <Footer />
+      <WhatsAppButton />
+    </div>
+  );
+}
