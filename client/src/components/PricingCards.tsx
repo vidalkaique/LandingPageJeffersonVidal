@@ -93,7 +93,7 @@ export default function PricingCards() {
             {onlinePlans.map((plan, index) => (
               <Card 
                 key={`online-${index}`}
-                className="relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 bg-gradient-to-b from-primary/10 to-zinc-800 border-2 border-primary shadow-lg shadow-primary/30"
+                className="relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 bg-zinc-800 border-2 border-primary shadow-lg shadow-primary/30"
                 data-testid={`online-plan-${index}`}
               >
                 <CardHeader className="text-center space-y-4 pt-8 px-4">
@@ -141,7 +141,7 @@ export default function PricingCards() {
             {presencialPlans.map((plan, index) => (
               <Card 
                 key={`presencial-${index}`}
-                className="relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 bg-gradient-to-b from-primary/10 to-zinc-800 border-2 border-primary shadow-lg shadow-primary/30"
+                className="relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 bg-zinc-800 border-2 border-primary shadow-lg shadow-primary/30"
                 data-testid={`presencial-plan-${index}`}
               >
                 <CardHeader className="text-center space-y-4 pt-8 px-4">
