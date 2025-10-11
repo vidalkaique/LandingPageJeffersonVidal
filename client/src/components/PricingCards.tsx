@@ -1,17 +1,16 @@
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { HorariosService, type HorariosAgrupados } from "@/lib/supabase";
 import { Check, Clock, Calendar } from "lucide-react";
-import { useState, useEffect } from "react";
 
 interface TimeSlot {
   start: string;
   end: string;
 }
 
-interface Schedule {
-  [key: string]: TimeSlot[];
-}
+
 
 const DAYS_LABELS = {
   segunda: 'Segunda-feira',
@@ -85,21 +84,24 @@ const presencialPlans = [
 
 // Componente para mostrar horários
 function HorariosModal() {
-  const [schedule, setSchedule] = useState<Schedule>({});
+  const [schedule, setSchedule] = useState<HorariosAgrupados>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Carrega horários do arquivo JSON
-    fetch('/horarios.json')
-      .then(response => response.json())
-      .then(data => {
-        setSchedule(data);
-        setLoading(false);
-      })
-      .catch(error => {
+    // Carrega horários do Supabase
+    const loadHorarios = async () => {
+      try {
+        const horarios = await HorariosService.getHorarios();
+        setSchedule(horarios);
+      } catch (error) {
         console.error('Erro ao carregar horários:', error);
+        setSchedule(HorariosService.getHorariosPadrao());
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    
+    loadHorarios();
   }, []);
 
   if (loading) {

@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Plus, Trash2, Save, Clock, Smartphone } from "lucide-react";
+import { Plus, Trash2, Save, Clock, Smartphone, Wifi, WifiOff } from "lucide-react";
+import { HorariosService, type HorariosAgrupados } from "@/lib/supabase";
 
 interface TimeSlot {
   start: string;
   end: string;
-}
-
-interface Schedule {
-  [key: string]: TimeSlot[];
+  id?: string;
 }
 
 const DAYS = [
@@ -26,7 +24,7 @@ const DAYS = [
 export default function AdminHorarios() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
-  const [schedule, setSchedule] = useState<Schedule>({});
+  const [schedule, setSchedule] = useState<HorariosAgrupados>({});
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -39,34 +37,11 @@ export default function AdminHorarios() {
 
   const loadSchedule = async () => {
     try {
-      const response = await fetch('/api/horarios');
-      if (response.ok) {
-        const data = await response.json();
-        setSchedule(data);
-      } else {
-        // Se não conseguir carregar, usa dados padrão
-        setSchedule({
-          segunda: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-          terca: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-          quarta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-          quinta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-          sexta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-          sabado: [{ start: '08:00', end: '10:00' }],
-          domingo: []
-        });
-      }
+      const horarios = await HorariosService.getHorarios();
+      setSchedule(horarios);
     } catch (error) {
       console.error('Erro ao carregar horários:', error);
-      // Usa dados padrão em caso de erro
-      setSchedule({
-        segunda: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-        terca: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-        quarta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-        quinta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-        sexta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-        sabado: [{ start: '08:00', end: '10:00' }],
-        domingo: []
-      });
+      setSchedule(HorariosService.getHorariosPadrao());
     } finally {
       setLoading(false);
     }
@@ -81,48 +56,41 @@ export default function AdminHorarios() {
   };
 
   const addTimeSlot = (day: string) => {
-    setSchedule(prev => ({
+    setSchedule((prev: HorariosAgrupados) => ({
       ...prev,
-      [day]: [...prev[day], { start: '09:00', end: '10:00' }]
+      [day]: [...(prev[day] || []), { start: '09:00', end: '10:00' }]
     }));
   };
 
   const removeTimeSlot = (day: string, index: number) => {
-    setSchedule(prev => ({
+    setSchedule((prev: HorariosAgrupados) => ({
       ...prev,
-      [day]: prev[day].filter((_, i) => i !== index)
+      [day]: prev[day]?.filter((_: TimeSlot, i: number) => i !== index) || []
     }));
   };
 
   const updateTimeSlot = (day: string, index: number, field: 'start' | 'end', value: string) => {
-    setSchedule(prev => ({
+    setSchedule((prev: HorariosAgrupados) => ({
       ...prev,
-      [day]: prev[day].map((slot, i) => 
+      [day]: prev[day]?.map((slot: TimeSlot, i: number) => 
         i === index ? { ...slot, [field]: value } : slot
-      )
+      ) || []
     }));
   };
 
   const saveSchedule = async () => {
     setIsSaving(true);
     try {
-      const response = await fetch('/api/horarios', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ schedule }),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        alert('Horários salvos com sucesso! ✅');
+      const sucesso = await HorariosService.salvarHorarios(schedule);
+      
+      if (sucesso) {
+        alert('✅ Horários salvos com sucesso!');
       } else {
-        throw new Error('Erro ao salvar');
+        throw new Error('Falha ao salvar no Supabase');
       }
     } catch (error) {
       console.error('Erro ao salvar horários:', error);
-      alert('Erro ao salvar horários. Tente novamente.');
+      alert('❌ Erro ao salvar horários. Verifique sua conexão.');
     } finally {
       setIsSaving(false);
     }
@@ -172,7 +140,14 @@ export default function AdminHorarios() {
           <div className="flex items-center gap-3">
             <Clock className="w-6 h-6 text-primary" />
             <div>
-              <h1 className="text-lg font-bold">Meus Horários</h1>
+              <div className="flex items-center gap-2">
+                <h1 className="text-lg font-bold">Meus Horários</h1>
+                {HorariosService.isConfigured() ? (
+                  <Wifi className="w-4 h-4 text-green-500" />
+                ) : (
+                  <WifiOff className="w-4 h-4 text-yellow-500" />
+                )}
+              </div>
               <p className="text-xs text-gray-400">Jefferson Vidal</p>
             </div>
           </div>
@@ -220,7 +195,7 @@ export default function AdminHorarios() {
                   Nenhum horário disponível
                 </p>
               ) : (
-                schedule[day.key].map((slot, index) => (
+                schedule[day.key]?.map((slot: TimeSlot, index: number) => (
                   <div key={index} className="bg-zinc-800 rounded-lg p-3">
                     <div className="flex items-center gap-2 mb-2">
                       <Clock className="w-4 h-4 text-primary" />
