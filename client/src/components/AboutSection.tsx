@@ -20,7 +20,7 @@ export default function AboutSection() {
             </p>
           </div>
           
-          <div className="space-y-6 flex flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="space-y-6 flex flex-col items-center text-center lg:text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-white font-montserrat uppercase" data-testid="text-about-title">
               QUEM É JEFFERSON VIDAL?
             </h2>
@@ -36,7 +36,7 @@ export default function AboutSection() {
 
             <Button 
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-4 text-base md:text-lg font-bold uppercase tracking-wider transform hover:scale-105 transition-transform min-h-[56px] flex items-center justify-center"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-4 text-base md:text-lg font-bold uppercase tracking-wider transform hover:scale-105 transition-transform min-h-[56px] inline-flex items-center justify-center"
               onClick={scrollToPlans}
               data-testid="button-start-about"
             >

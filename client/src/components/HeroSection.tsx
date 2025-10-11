@@ -29,7 +29,7 @@ export default function HeroSection() {
             </p>
             <Button 
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-4 text-base md:text-lg font-bold uppercase tracking-wider transform hover:scale-105 transition-transform min-h-[56px] flex items-center justify-center"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-4 text-base md:text-lg font-bold uppercase tracking-wider transform hover:scale-105 transition-transform min-h-[56px] inline-flex items-center justify-center"
               onClick={scrollToPlans}
               data-testid="button-start-now"
             >
