@@ -246,44 +246,46 @@ export default function PricingCards() {
                   ))}
                 </CardContent>
                 
-                <CardFooter className="pb-6 mt-auto px-4 space-y-3">
-                  {/* Botão Ver Horários */}
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="w-full rounded-full px-4 py-2 text-sm font-medium border-primary text-primary hover:bg-primary/10 min-h-[40px] !inline-flex !items-center !justify-center whitespace-nowrap"
-                        data-testid={`button-horarios-${index}`}
-                      >
-                        <Clock className="w-4 h-4 mr-2" />
-                        VER HORÁRIOS DISPONÍVEIS
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="bg-zinc-900 border-zinc-700 text-white max-w-md">
-                      <DialogHeader>
-                        <DialogTitle className="text-white flex items-center gap-2">
-                          <Calendar className="w-5 h-5 text-primary" />
-                          Horários Disponíveis
-                        </DialogTitle>
-                      </DialogHeader>
-                      <HorariosModal />
-                    </DialogContent>
-                  </Dialog>
-                  
-                  {/* Botão Principal */}
-                  <Button
-                    className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/30"
-                    onClick={() => {
-                      if (plan.link === '#contato') {
-                        window.open('https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20plano%20' + encodeURIComponent(plan.name), '_blank');
-                      } else {
-                        window.open(plan.link, '_blank');
-                      }
-                    }}
-                    data-testid={`button-presencial-${index}`}
-                  >
-                    QUERO ESSE PLANO
-                  </Button>
+                <CardFooter className="pb-6 mt-auto px-4">
+                  <div className="w-full space-y-3">
+                    {/* Botão Ver Horários - Apenas Contorno */}
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          className="w-full rounded-full px-4 py-2 text-sm font-medium border-2 border-primary text-primary hover:bg-primary/5 hover:border-primary/80 min-h-[40px] !inline-flex !items-center !justify-center whitespace-nowrap transition-all duration-300"
+                          data-testid={`button-horarios-${index}`}
+                        >
+                          <Clock className="w-4 h-4 mr-2" />
+                          VER HORÁRIOS DISPONÍVEIS
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="bg-zinc-900 border-zinc-700 text-white max-w-md">
+                        <DialogHeader>
+                          <DialogTitle className="text-white flex items-center gap-2">
+                            <Calendar className="w-5 h-5 text-primary" />
+                            Horários Disponíveis
+                          </DialogTitle>
+                        </DialogHeader>
+                        <HorariosModal />
+                      </DialogContent>
+                    </Dialog>
+                    
+                    {/* Botão Principal */}
+                    <Button
+                      className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/30"
+                      onClick={() => {
+                        if (plan.link === '#contato') {
+                          window.open('https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20plano%20' + encodeURIComponent(plan.name), '_blank');
+                        } else {
+                          window.open(plan.link, '_blank');
+                        }
+                      }}
+                      data-testid={`button-presencial-${index}`}
+                    >
+                      QUERO ESSE PLANO
+                    </Button>
+                  </div>
                 </CardFooter>
               </Card>
             ))}
