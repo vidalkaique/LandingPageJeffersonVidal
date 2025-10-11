@@ -5,7 +5,7 @@ import { Check } from "lucide-react";
 const onlinePlans = [
   {
     name: "MENSAL",
-    price: "R$300,00",
+    price: "R$200,00",
     features: [
       "Plano de 30 dias",
       "Avaliação postural",
@@ -14,20 +14,21 @@ const onlinePlans = [
     link: "https://pay.kiwify.com.br/iqaEF5m"
   },
   {
-    name: "TRIMESTRAL",
-    price: "R$282,77",
+    name: "BIMESTRAL",
+    price: "R$350,00",
     features: [
-      "Plano de 90 dias",
+      "Plano de 60 dias",
       "Avaliação postural",
       "Acompanhamento no WhatsApp"
     ],
-    link: "https://pay.kiwify.com.br/uhNZZBN"
+    link: "https://pay.kiwify.com.br/uhNZZBN",
+    highlighted: true
   },
   {
-    name: "SEMESTRAL",
-    price: "R$276,81",
+    name: "TRIMESTRAL",
+    price: "R$500,00",
     features: [
-      "Plano de 180 dias",
+      "Plano de 90 dias",
       "Avaliação postural",
       "Acompanhamento no WhatsApp"
     ],
@@ -37,44 +38,14 @@ const onlinePlans = [
 
 const presencialPlans = [
   {
-    name: "MENSAL",
-    price: "R$200,00",
-    features: [
-      "Acompanhamento presencial",
-      "Treino na academia",
-      "Avaliação física completa"
-    ],
-    link: "#contato"
-  },
-  {
-    name: "BIMESTRAL",
-    price: "R$350,00",
-    features: [
-      "2 meses de acompanhamento",
-      "Treino na academia",
-      "Avaliação física completa"
-    ],
-    link: "#contato",
-    highlighted: true
-  },
-  {
-    name: "TRIMESTRAL",
-    price: "R$500,00",
-    features: [
-      "3 meses de acompanhamento",
-      "Treino na academia",
-      "Avaliação física completa"
-    ],
-    link: "#contato"
-  },
-  {
     name: "3X SEMANA",
     price: "R$700,00",
     period: "mensal",
     features: [
       "3 treinos por semana",
       "Acompanhamento presencial",
-      "Plano personalizado"
+      "Plano personalizado",
+      "Avaliação física completa"
     ],
     link: "#contato"
   },
@@ -85,9 +56,11 @@ const presencialPlans = [
     features: [
       "5 treinos por semana",
       "Acompanhamento presencial",
-      "Plano personalizado"
+      "Plano personalizado",
+      "Avaliação física completa"
     ],
-    link: "#contato"
+    link: "#contato",
+    highlighted: true
   }
 ];
 
@@ -113,7 +86,7 @@ export default function PricingCards() {
         <div className="mb-20">
           <div className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold text-white font-montserrat uppercase mb-4">
-              📱 ACOMPANHAMENTO ONLINE
+              ACOMPANHAMENTO ONLINE
             </h3>
             <p className="text-gray-400">Treino personalizado onde você estiver</p>
           </div>
@@ -161,12 +134,12 @@ export default function PricingCards() {
         <div>
           <div className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold text-white font-montserrat uppercase mb-4">
-              🏋️ ACOMPANHAMENTO PRESENCIAL
+              ACOMPANHAMENTO PRESENCIAL
             </h3>
             <p className="text-gray-400">Treino personalizado na academia com acompanhamento direto</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {presencialPlans.map((plan, index) => (
               <Card 
                 key={`presencial-${index}`}
@@ -185,30 +158,30 @@ export default function PricingCards() {
                   </div>
                 )}
                 
-                <CardHeader className="text-center space-y-3 pt-8 px-3">
-                  <h4 className="text-lg md:text-xl font-bold font-montserrat uppercase text-white text-center break-words">
+                <CardHeader className="text-center space-y-4 pt-8 px-4">
+                  <h4 className="text-xl md:text-2xl font-bold font-montserrat uppercase text-white text-center break-words">
                     {plan.name}
                   </h4>
-                  <div className="space-y-1">
-                    <p className="text-2xl md:text-3xl font-bold font-montserrat text-white">{plan.price}</p>
+                  <div className="space-y-2">
+                    <p className="text-3xl md:text-4xl font-bold font-montserrat text-white">{plan.price}</p>
                     {plan.period && (
-                      <p className="text-xs text-gray-400">{plan.period}</p>
+                      <p className="text-sm text-gray-400">{plan.period}</p>
                     )}
                   </div>
                 </CardHeader>
                 
-                <CardContent className="space-y-2 py-4 flex-grow px-3">
+                <CardContent className="space-y-3 py-6 flex-grow px-4">
                   {plan.features.map((feature, fIndex) => (
-                    <div key={fIndex} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <p className="text-gray-300 font-openSans text-xs">{feature}</p>
+                    <div key={fIndex} className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                      <p className="text-gray-300 font-openSans text-sm">{feature}</p>
                     </div>
                   ))}
                 </CardContent>
                 
-                <CardFooter className="pb-4 mt-auto px-3">
+                <CardFooter className="pb-6 mt-auto px-4">
                   <Button
-                    className="w-full rounded-full px-3 py-2 text-xs font-bold uppercase tracking-wider min-h-[40px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/30"
+                    className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/30"
                     onClick={() => {
                       if (plan.link === '#contato') {
                         window.open('https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20plano%20' + encodeURIComponent(plan.name), '_blank');
