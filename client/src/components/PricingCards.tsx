@@ -1,6 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Check, Clock, Calendar } from "lucide-react";
+import { useState, useEffect } from "react";
+
+interface TimeSlot {
+  start: string;
+  end: string;
+}
+
+interface Schedule {
+  [key: string]: TimeSlot[];
+}
+
+const DAYS_LABELS = {
+  segunda: 'Segunda-feira',
+  terca: 'Terça-feira',
+  quarta: 'Quarta-feira',
+  quinta: 'Quinta-feira',
+  sexta: 'Sexta-feira',
+  sabado: 'Sábado',
+  domingo: 'Domingo'
+};
 
 const onlinePlans = [
   {
@@ -61,6 +82,66 @@ const presencialPlans = [
     link: "#contato"
   }
 ];
+
+// Componente para mostrar horários
+function HorariosModal() {
+  const [schedule, setSchedule] = useState<Schedule>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Carrega horários do arquivo JSON
+    fetch('/horarios.json')
+      .then(response => response.json())
+      .then(data => {
+        setSchedule(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Erro ao carregar horários:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-h-96 overflow-y-auto">
+      <div className="space-y-4">
+        {Object.entries(DAYS_LABELS).map(([dayKey, dayLabel]) => {
+          const daySchedule = schedule[dayKey] || [];
+          return (
+            <div key={dayKey} className="border-b border-zinc-700 pb-4 last:border-b-0">
+              <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-primary" />
+                {dayLabel}
+              </h4>
+              {daySchedule.length === 0 ? (
+                <p className="text-gray-400 text-sm ml-6">Não disponível</p>
+              ) : (
+                <div className="space-y-2 ml-6">
+                  {daySchedule.map((slot, index) => (
+                    <div key={index} className="flex items-center gap-2 text-sm">
+                      <Clock className="w-3 h-3 text-primary" />
+                      <span className="text-gray-300">
+                        {slot.start} às {slot.end}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 export default function PricingCards() {
   return (
@@ -165,7 +246,31 @@ export default function PricingCards() {
                   ))}
                 </CardContent>
                 
-                <CardFooter className="pb-6 mt-auto px-4">
+                <CardFooter className="pb-6 mt-auto px-4 space-y-3">
+                  {/* Botão Ver Horários */}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full rounded-full px-4 py-2 text-sm font-medium border-primary text-primary hover:bg-primary/10 min-h-[40px] !inline-flex !items-center !justify-center whitespace-nowrap"
+                        data-testid={`button-horarios-${index}`}
+                      >
+                        <Clock className="w-4 h-4 mr-2" />
+                        VER HORÁRIOS DISPONÍVEIS
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="bg-zinc-900 border-zinc-700 text-white max-w-md">
+                      <DialogHeader>
+                        <DialogTitle className="text-white flex items-center gap-2">
+                          <Calendar className="w-5 h-5 text-primary" />
+                          Horários Disponíveis
+                        </DialogTitle>
+                      </DialogHeader>
+                      <HorariosModal />
+                    </DialogContent>
+                  </Dialog>
+                  
+                  {/* Botão Principal */}
                   <Button
                     className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/30"
                     onClick={() => {
