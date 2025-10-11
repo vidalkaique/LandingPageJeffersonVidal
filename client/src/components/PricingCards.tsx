@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { HorariosService, type HorariosAgrupados } from "@/lib/supabase";
+import { PlanosService, type PlanosAgrupados } from "@/lib/planos";
 import { Check, Clock, Calendar } from "lucide-react";
 
 interface TimeSlot {
@@ -22,65 +23,7 @@ const DAYS_LABELS = {
   domingo: 'Domingo'
 };
 
-const onlinePlans = [
-  {
-    name: "MENSAL",
-    price: "R$200,00",
-    features: [
-      "Plano de 30 dias",
-      "Avaliação postural",
-      "Acompanhamento no WhatsApp"
-    ],
-    link: "https://pay.kiwify.com.br/iqaEF5m"
-  },
-  {
-    name: "BIMESTRAL",
-    price: "R$350,00",
-    features: [
-      "Plano de 60 dias",
-      "Avaliação postural",
-      "Acompanhamento no WhatsApp"
-    ],
-    link: "https://pay.kiwify.com.br/uhNZZBN"
-  },
-  {
-    name: "TRIMESTRAL",
-    price: "R$500,00",
-    features: [
-      "Plano de 90 dias",
-      "Avaliação postural",
-      "Acompanhamento no WhatsApp"
-    ],
-    link: "https://pay.kiwify.com.br/pg5M9Rb"
-  }
-];
-
-const presencialPlans = [
-  {
-    name: "3X SEMANA",
-    price: "R$700,00",
-    period: "mensal",
-    features: [
-      "3 treinos por semana",
-      "Acompanhamento presencial",
-      "Plano personalizado",
-      "Avaliação física completa"
-    ],
-    link: "#contato"
-  },
-  {
-    name: "5X SEMANA",
-    price: "R$900,00",
-    period: "mensal",
-    features: [
-      "5 treinos por semana",
-      "Acompanhamento presencial",
-      "Plano personalizado",
-      "Avaliação física completa"
-    ],
-    link: "#contato"
-  }
-];
+// Arrays removidos - agora os planos vêm do Supabase dinamicamente
 
 // Componente para mostrar horários
 function HorariosModal() {
@@ -146,6 +89,44 @@ function HorariosModal() {
 }
 
 export default function PricingCards() {
+  const [planos, setPlanos] = useState<PlanosAgrupados | null>(null);
+  const [loadingPlanos, setLoadingPlanos] = useState(true);
+
+  useEffect(() => {
+    const loadPlanos = async () => {
+      try {
+        const planosData = await PlanosService.getPlanos();
+        setPlanos(planosData);
+      } catch (error) {
+        console.error('Erro ao carregar planos:', error);
+        setPlanos(PlanosService.getPlanosPadrao());
+      } finally {
+        setLoadingPlanos(false);
+      }
+    };
+    
+    loadPlanos();
+  }, []);
+
+  if (loadingPlanos) {
+    return (
+      <section id="planos" className="bg-gradient-to-b from-black via-zinc-900 to-black py-24 relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+              <p className="text-gray-400">Carregando planos...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!planos) {
+    return null;
+  }
+
   return (
     <section id="planos" className="bg-gradient-to-b from-black via-zinc-900 to-black py-24 relative overflow-hidden">
       {/* Background Effects */}
@@ -173,7 +154,7 @@ export default function PricingCards() {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {onlinePlans.map((plan, index) => (
+            {planos.online.map((plan, index) => (
               <Card 
                 key={`online-${index}`}
                 className="relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 bg-zinc-800 border-2 border-primary shadow-lg shadow-primary/30"
@@ -221,7 +202,7 @@ export default function PricingCards() {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {presencialPlans.map((plan, index) => (
+            {planos.presencial.map((plan, index) => (
               <Card 
                 key={`presencial-${index}`}
                 className="relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 bg-zinc-800 border-2 border-primary shadow-lg shadow-primary/30"
