@@ -21,8 +21,7 @@ const onlinePlans = [
       "Avaliação postural",
       "Acompanhamento no WhatsApp"
     ],
-    link: "https://pay.kiwify.com.br/uhNZZBN",
-    highlighted: true
+    link: "https://pay.kiwify.com.br/uhNZZBN"
   },
   {
     name: "TRIMESTRAL",
@@ -59,8 +58,7 @@ const presencialPlans = [
       "Plano personalizado",
       "Avaliação física completa"
     ],
-    link: "#contato",
-    highlighted: true
+    link: "#contato"
   }
 ];
 
@@ -95,7 +93,7 @@ export default function PricingCards() {
             {onlinePlans.map((plan, index) => (
               <Card 
                 key={`online-${index}`}
-                className="relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 bg-zinc-800 border border-zinc-700 hover:border-primary/50"
+                className="relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 bg-gradient-to-b from-primary/10 to-zinc-800 border-2 border-primary shadow-lg shadow-primary/30"
                 data-testid={`online-plan-${index}`}
               >
                 <CardHeader className="text-center space-y-4 pt-8 px-4">
@@ -143,21 +141,9 @@ export default function PricingCards() {
             {presencialPlans.map((plan, index) => (
               <Card 
                 key={`presencial-${index}`}
-                className={`relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 ${
-                  plan.highlighted 
-                    ? 'bg-gradient-to-b from-primary/10 to-zinc-800 border-2 border-primary shadow-lg shadow-primary/30' 
-                    : 'bg-zinc-800 border border-zinc-700 hover:border-primary/50'
-                }`}
+                className="relative h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 bg-gradient-to-b from-primary/10 to-zinc-800 border-2 border-primary shadow-lg shadow-primary/30"
                 data-testid={`presencial-plan-${index}`}
               >
-                {plan.highlighted && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                    <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
-                      MAIS POPULAR
-                    </div>
-                  </div>
-                )}
-                
                 <CardHeader className="text-center space-y-4 pt-8 px-4">
                   <h4 className="text-xl md:text-2xl font-bold font-montserrat uppercase text-white text-center break-words">
                     {plan.name}
