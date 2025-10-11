@@ -26,16 +26,51 @@ const DAYS = [
 export default function AdminHorarios() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
-  const [schedule, setSchedule] = useState<Schedule>({
-    segunda: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-    terca: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-    quarta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-    quinta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-    sexta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
-    sabado: [{ start: '08:00', end: '10:00' }],
-    domingo: []
-  });
+  const [schedule, setSchedule] = useState<Schedule>({});
+  const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+
+  // Carrega horários quando autentica
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadSchedule();
+    }
+  }, [isAuthenticated]);
+
+  const loadSchedule = async () => {
+    try {
+      const response = await fetch('/api/horarios');
+      if (response.ok) {
+        const data = await response.json();
+        setSchedule(data);
+      } else {
+        // Se não conseguir carregar, usa dados padrão
+        setSchedule({
+          segunda: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+          terca: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+          quarta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+          quinta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+          sexta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+          sabado: [{ start: '08:00', end: '10:00' }],
+          domingo: []
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao carregar horários:', error);
+      // Usa dados padrão em caso de erro
+      setSchedule({
+        segunda: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+        terca: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+        quarta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+        quinta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+        sexta: [{ start: '06:00', end: '08:00' }, { start: '18:00', end: '20:00' }],
+        sabado: [{ start: '08:00', end: '10:00' }],
+        domingo: []
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLogin = () => {
     if (password === 'jefferson2024') {
@@ -70,11 +105,27 @@ export default function AdminHorarios() {
 
   const saveSchedule = async () => {
     setIsSaving(true);
-    // Aqui salvaria no arquivo JSON via API
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/horarios', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ schedule }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert('Horários salvos com sucesso! ✅');
+      } else {
+        throw new Error('Erro ao salvar');
+      }
+    } catch (error) {
+      console.error('Erro ao salvar horários:', error);
+      alert('Erro ao salvar horários. Tente novamente.');
+    } finally {
       setIsSaving(false);
-      alert('Horários salvos com sucesso! ✅');
-    }, 1000);
+    }
   };
 
   if (!isAuthenticated) {
@@ -136,8 +187,17 @@ export default function AdminHorarios() {
         </div>
       </div>
 
-      {/* Days Cards - Mobile Optimized */}
-      <div className="space-y-4 max-w-2xl mx-auto">
+      {/* Loading State */}
+      {loading ? (
+        <div className="flex items-center justify-center py-12">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-gray-400">Carregando horários...</p>
+          </div>
+        </div>
+      ) : (
+        /* Days Cards - Mobile Optimized */
+        <div className="space-y-4 max-w-2xl mx-auto">
         {DAYS.map((day) => (
           <Card key={day.key} className="bg-zinc-900 border-zinc-700">
             <CardHeader className="pb-3">
@@ -200,7 +260,8 @@ export default function AdminHorarios() {
             </CardContent>
           </Card>
         ))}
-      </div>
+        </div>
+      )}
 
       {/* Bottom Save Button - Mobile */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/95 backdrop-blur-sm border-t border-zinc-800">
