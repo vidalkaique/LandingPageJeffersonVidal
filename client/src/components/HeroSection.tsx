@@ -22,10 +22,10 @@ export default function HeroSection() {
           {/* Left content */}
           <div className="text-white space-y-6 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat uppercase leading-tight tracking-wide" data-testid="text-hero-title">
-              CONSULTORIA FITNESS PERSONALIZADA PARA VOCÊ ALCANÇAR SEUS OBJETIVOS
+              Alcance o corpo e a performance que você sempre quis com uma <span className="text-red-500">consultoria fitness</span> feita para você.
             </h1>
             <p className="text-lg md:text-xl font-openSans leading-relaxed text-gray-200" data-testid="text-hero-subtitle">
-              Tenha um plano de treino exclusivo e estratégico para alcançar seus objetivos. Gaste sua energia com o que realmente funciona.
+              Estratégia, foco e resultados. Um plano de treino exclusivo feito para o seu desempenho evoluir de verdade.
             </p>
             <Button 
               size="lg"

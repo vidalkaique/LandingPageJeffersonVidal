@@ -19,8 +19,8 @@ export default function ProcessSteps() {
           </div>
           
           <div className="space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-white font-montserrat uppercase" data-testid="text-process-title">
-              Como funciona nosso processo
+            <h2 className="text-3xl md:text-4xl font-bold font-montserrat uppercase" data-testid="text-process-title">
+              <span className="text-red-500">Como funciona nosso processo</span>
             </h2>
             
             <div className="space-y-6">
