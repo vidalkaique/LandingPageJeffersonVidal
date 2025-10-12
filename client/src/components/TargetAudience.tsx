@@ -6,7 +6,9 @@ const audiences = [
 
 export default function TargetAudience() {
   return (
-    <section className="bg-zinc-900 py-24">
+    <section className="relative py-24" style={{
+      background: 'linear-gradient(to bottom, #18181b 0%, #18181b 85%, #000000 100%)'
+    }}>
       <div className="container mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-white font-montserrat uppercase text-center mb-12" data-testid="text-audience-title">
           Minha consultoria é para você que

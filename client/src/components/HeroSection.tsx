@@ -9,7 +9,9 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen bg-black flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden" style={{
+      background: 'linear-gradient(to bottom, #000000 0%, #000000 90%, #18181b 100%)'
+    }}>
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Right image - Jefferson Vidal - Aparece primeiro em mobile */}
@@ -47,7 +49,7 @@ export default function HeroSection() {
             <img 
               src="/img/logo_jeffersonvidal.png" 
               alt="Logo Jefferson Vidal"
-              className="h-12 md:h-16 lg:h-20 w-auto object-contain drop-shadow-lg cursor-pointer hover:scale-105 transition-transform"
+              className="h-20 md:h-24 lg:h-32 w-auto object-contain drop-shadow-lg cursor-pointer hover:scale-105 transition-transform"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             />
           </div>

@@ -20,7 +20,9 @@ const benefits = [
 
 export default function BenefitsGrid() {
   return (
-    <section className="bg-black py-16">
+    <section className="relative py-16" style={{
+      background: 'linear-gradient(to bottom, #18181b 0%, #000000 50%, #000000 100%)'
+    }}>
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {benefits.map((benefit, index) => {

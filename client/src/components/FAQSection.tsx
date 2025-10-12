@@ -31,7 +31,9 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section className="bg-zinc-900 py-24">
+    <section className="relative py-24" style={{
+      background: 'linear-gradient(to bottom, #18181b 0%, #18181b 85%, #000000 100%)'
+    }}>
       <div className="container mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-white font-montserrat uppercase text-center mb-12" data-testid="text-faq-title">
           DÚVIDAS FREQUENTES
@@ -56,16 +58,22 @@ export default function FAQSection() {
             ))}
           </Accordion>
 
-          <div className="bg-black p-8 rounded-lg text-center space-y-4">
+          <div className="bg-black p-8 rounded-lg text-center space-y-4 mx-auto max-w-2xl">
             <p className="text-white font-semibold text-xl font-montserrat">Restou alguma dúvida?</p>
             <p className="text-gray-300 font-openSans">Chame-nos no WhatsApp, estamos a disposição para sanar qualquer dúvida.</p>
-            <Button
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-8 py-4 text-base font-bold uppercase tracking-wider min-h-[56px] flex items-center justify-center"
-              data-testid="button-whatsapp-faq"
-            >
-              SABER MAIS PELO WHATSAPP
-            </Button>
+            <div className="flex justify-center">
+              <Button
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-8 py-4 text-base font-bold uppercase tracking-wider min-h-[56px] inline-flex items-center justify-center"
+                data-testid="button-whatsapp-faq"
+                onClick={() => {
+                  const message = encodeURIComponent("Olá, Tudo Bem? Estou de mandando essa mensgem pois estou com uma duvida!");
+                  window.open(`https://wa.me/5574999794410?text=${message}`, '_blank');
+                }}
+              >
+                SABER MAIS PELO WHATSAPP
+              </Button>
+            </div>
           </div>
         </div>
       </div>

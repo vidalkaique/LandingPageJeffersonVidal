@@ -14,7 +14,9 @@ export default function VideoTestimonials() {
   };
 
   return (
-    <section className="bg-black py-24">
+    <section className="relative py-24" style={{
+      background: 'linear-gradient(to bottom, #000000 0%, #000000 85%, #18181b 100%)'
+    }}>
       <div className="container mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-white font-montserrat uppercase text-center mb-12" data-testid="text-testimonials-title">
           RESULTADOS COMPROVADOS

@@ -7,7 +7,9 @@ const steps = [
 
 export default function ProcessSteps() {
   return (
-    <section className="bg-black py-24">
+    <section className="relative py-24" style={{
+      background: 'linear-gradient(to bottom, #000000 0%, #000000 85%, #18181b 100%)'
+    }}>
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="aspect-square bg-zinc-800 rounded-lg flex items-center justify-center">
