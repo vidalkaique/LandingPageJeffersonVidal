@@ -9,9 +9,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden" style={{
-      background: 'linear-gradient(to bottom, #000000 0%, #000000 90%, #18181b 100%)'
-    }}>
+    <section className="relative min-h-screen bg-black flex items-center overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Right image - Jefferson Vidal - Aparece primeiro em mobile */}

@@ -9,17 +9,34 @@ export default function AboutSection() {
   };
 
   return (
-    <section className="relative py-24" style={{
-      background: 'linear-gradient(to bottom, #000000 0%, #000000 85%, #18181b 100%)'
-    }}>
+    <section className="bg-black py-24">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="aspect-square bg-zinc-800 rounded-lg flex items-center justify-center">
-            <p className="text-zinc-500 text-center">
-              Foto do Personal Trainer
-              <br />
-              <span className="text-sm">(Foto profissional)</span>
-            </p>
+          <div className="aspect-square relative overflow-hidden rounded-lg">
+            {/* Imagem com efeito de bordas transparentes suaves */}
+            <div className="relative w-full h-full">
+              <img 
+                src="/img/fotojeffvidal2.png" 
+                alt="Jefferson Vidal - Personal Trainer"
+                className="w-full h-full object-cover object-center"
+              />
+              {/* Múltiplos gradientes para transição suave - efeito reduzido */}
+              {/* Gradientes laterais */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black via-black/15 via-transparent via-black/15 to-black opacity-50"></div>
+              
+              {/* Gradientes verticais */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 via-transparent via-black/5 to-black/40 opacity-60"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent via-black/15 to-black opacity-50"></div>
+              
+              {/* Máscara radial para efeito mais suave no centro */}
+              <div className="absolute inset-0" style={{
+                background: 'radial-gradient(ellipse 75% 85% at center, transparent 40%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0.6) 100%)'
+              }}></div>
+              
+              {/* Gradiente adicional para cantos - reduzido */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/30 opacity-40"></div>
+              <div className="absolute inset-0 bg-gradient-to-bl from-black/30 via-transparent to-black/40 opacity-35"></div>
+            </div>
           </div>
           
           <div className="space-y-6 flex flex-col items-center text-center lg:text-left">

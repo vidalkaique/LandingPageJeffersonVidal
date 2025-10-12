@@ -1,8 +1,6 @@
 export default function ProblemSection() {
   return (
-    <section className="relative py-24" style={{
-      background: 'linear-gradient(to bottom, #000000 0%, #000000 85%, #18181b 100%)'
-    }}>
+    <section className="bg-black py-24">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold font-montserrat uppercase mb-8" data-testid="text-problem-title">
