@@ -37,14 +37,21 @@ export default function HeroSection() {
             </Button>
           </div>
 
-          {/* Right image - placeholder */}
+          {/* Right image - Jefferson Vidal */}
           <div className="relative">
-            <div className="aspect-[3/4] bg-zinc-800 rounded-lg flex items-center justify-center">
-              <p className="text-zinc-500 text-center px-8">
-                Imagem do Personal Trainer
-                <br />
-                <span className="text-sm">(Substituir pela foto real)</span>
-              </p>
+            <div className="aspect-[3/4] relative overflow-hidden">
+              {/* Imagem com efeito de bordas transparentes */}
+              <div className="relative w-full h-full">
+                <img 
+                  src="/img/JEFFERSON_VIDAL.png" 
+                  alt="Jefferson Vidal - Personal Trainer"
+                  className="w-full h-full object-cover object-center"
+                />
+                {/* Gradiente para bordas transparentes */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-30"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-40"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-transparent opacity-20"></div>
+              </div>
             </div>
           </div>
         </div>
