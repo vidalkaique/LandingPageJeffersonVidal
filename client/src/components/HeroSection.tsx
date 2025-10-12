@@ -40,17 +40,29 @@ export default function HeroSection() {
           {/* Right image - Jefferson Vidal */}
           <div className="relative">
             <div className="aspect-[3/4] relative overflow-hidden">
-              {/* Imagem com efeito de bordas transparentes */}
+              {/* Imagem com efeito de bordas transparentes suaves */}
               <div className="relative w-full h-full">
                 <img 
                   src="/img/JEFFERSON_VIDAL.png" 
                   alt="Jefferson Vidal - Personal Trainer"
                   className="w-full h-full object-cover object-center"
                 />
-                {/* Gradiente para bordas transparentes */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-30"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-40"></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-transparent opacity-20"></div>
+                {/* Múltiplos gradientes para transição suave */}
+                {/* Gradientes laterais */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/20 via-transparent via-black/20 to-black opacity-70"></div>
+                
+                {/* Gradientes verticais */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 via-transparent via-black/10 to-black/60 opacity-80"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent via-black/20 to-black opacity-70"></div>
+                
+                {/* Máscara radial para efeito mais suave no centro */}
+                <div className="absolute inset-0" style={{
+                  background: 'radial-gradient(ellipse 70% 80% at center, transparent 30%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.8) 100%)'
+                }}></div>
+                
+                {/* Gradiente adicional para cantos */}
+                <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/40 opacity-60"></div>
+                <div className="absolute inset-0 bg-gradient-to-bl from-black/40 via-transparent to-black/60 opacity-50"></div>
               </div>
             </div>
           </div>
