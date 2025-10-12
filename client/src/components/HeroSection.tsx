@@ -25,7 +25,7 @@ export default function HeroSection() {
               {/* Imagem com efeito de bordas transparentes suaves */}
               <div className="relative w-full h-full">
                 <img 
-                  src="/img/JEFFERSON_VIDAL.png" 
+                  src="/img/JEFFERSON_VIDAL_2.png" 
                   alt="Jefferson Vidal - Personal Trainer"
                   className="w-full h-full object-cover object-center"
                 />
