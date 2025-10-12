@@ -14,7 +14,7 @@ export default function ProcessSteps() {
             {/* Imagem com efeito de bordas transparentes suaves */}
             <div className="relative w-full h-full">
               <img 
-                src="/img/sessaocomofunciona.heic" 
+                src="/img/fotojeffvidalsessaocomofunciona.jpeg" 
                 alt="Jefferson Vidal - Personal Trainer"
                 className="w-full h-full object-cover object-center"
               />
