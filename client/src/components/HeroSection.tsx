@@ -10,13 +10,6 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen bg-black flex items-center overflow-hidden">
-      {/* White vertical bars with glow effect */}
-      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex gap-12 pointer-events-none">
-        <div className="w-1 h-full bg-primary blur-sm opacity-60"></div>
-        <div className="w-2 h-full bg-primary blur-md opacity-80"></div>
-        <div className="w-1 h-full bg-primary blur-sm opacity-60"></div>
-      </div>
-
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Right image - Jefferson Vidal - Aparece primeiro em mobile */}
