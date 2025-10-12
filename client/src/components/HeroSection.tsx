@@ -49,7 +49,7 @@ export default function HeroSection() {
             <img 
               src="/img/logo_jeffersonvidal.png" 
               alt="Logo Jefferson Vidal"
-              className="h-20 md:h-24 lg:h-32 w-auto object-contain drop-shadow-lg cursor-pointer hover:scale-105 transition-transform"
+              className="h-12 md:h-16 lg:h-20 w-auto object-contain drop-shadow-lg cursor-pointer hover:scale-105 transition-transform"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             />
           </div>
