@@ -4,7 +4,6 @@ import ProblemSection from "@/components/ProblemSection";
 import ResultsCarousel from "@/components/ResultsCarousel";
 import ProcessSteps from "@/components/ProcessSteps";
 import TargetAudience from "@/components/TargetAudience";
-import VideoTestimonials from "@/components/VideoTestimonials";
 import PricingCards from "@/components/PricingCards";
 import AboutSection from "@/components/AboutSection";
 import FAQSection from "@/components/FAQSection";
@@ -20,7 +19,6 @@ export default function Home() {
       <ResultsCarousel />
       <ProcessSteps />
       <TargetAudience />
-      <VideoTestimonials />
       <PricingCards />
       <AboutSection />
       <FAQSection />

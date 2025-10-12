@@ -11,7 +11,7 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen bg-black flex items-center overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-12 items-center">
           {/* Right image - Jefferson Vidal - Aparece primeiro em mobile */}
           <div className="relative order-1 lg:order-2">
             <div className="aspect-[3/4] relative overflow-hidden">
@@ -43,7 +43,7 @@ export default function HeroSection() {
           </div>
 
           {/* Logo Jefferson - Entre a foto e o texto */}
-          <div className="flex justify-center items-center py-4 order-2 lg:order-3 lg:absolute lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:z-20">
+          <div className="flex justify-center items-center py-2 order-2 lg:order-3 lg:absolute lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:z-20">
             <img 
               src="/img/logo_jeffersonvidal.png" 
               alt="Logo Jefferson Vidal"

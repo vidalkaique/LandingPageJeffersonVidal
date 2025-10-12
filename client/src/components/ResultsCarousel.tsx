@@ -23,19 +23,27 @@ export default function ResultsCarousel() {
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {testimonials.map((testimonial) => (
-            <div 
-              key={testimonial.id} 
-              className="aspect-[3/4] bg-zinc-800 rounded-lg flex items-center justify-center"
-              data-testid={`testimonial-${testimonial.id}`}
-            >
-              <p className="text-zinc-500 text-center">
-                Depoimento {testimonial.name}
-                <br />
-                <span className="text-sm">(Antes/Depois)</span>
-              </p>
-            </div>
-          ))}
+          {testimonials.map((testimonial) => {
+            const imageMap = {
+              1: '/img/depoimento1.png',
+              2: '/img/depoimento2.png',
+              3: '/img/depoimento3.png'
+            };
+            
+            return (
+              <div 
+                key={testimonial.id} 
+                className="aspect-[3/4] bg-zinc-800 rounded-lg overflow-hidden"
+                data-testid={`testimonial-${testimonial.id}`}
+              >
+                <img 
+                  src={imageMap[testimonial.id]} 
+                  alt={`Depoimento ${testimonial.name} - Antes e Depois`}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+            );
+          })}
         </div>
 
         <div className="flex justify-center">

@@ -8,16 +8,16 @@ export default function ProblemSection() {
           </h2>
           <div className="space-y-4 text-lg md:text-xl text-gray-300 font-openSans leading-relaxed">
             <p>
-              Muitas pessoas tentam alcançar um corpo satisfatório e atraente, mas não conseguem resultados duradouros, mesmo sendo disciplinadas em treinar pesado e seguir dieta.
+              Você já se esforçou tanto na academia e na dieta, mas os resultados que sonha parecem distantes e temporários?
             </p>
             <p>
-              Isso acontece devido aos desvios posturais que prejudicam o desenvolvimento muscular.
+              O problema não está na sua dedicação, mas sim nos desequilíbrios corporais e compensações musculares que sabotam seu progresso.
             </p>
             <p>
-              Seguir fichas de treino genéricas apenas agrava o problema.
+              Treinos padronizados ignoram suas necessidades específicas e podem até intensificar essas limitações.
             </p>
             <p className="text-primary font-semibold">
-              Na minha Consultoria, você recebe acompanhamento personalizado e uma análise postural para criar o melhor plano de treinos. E o melhor: tudo de forma online, sem depender de horários com um personal trainer.
+              Com minha metodologia exclusiva, você terá um programa completamente individualizado, baseado na sua biomecânica única. Transformação real, com acompanhamento 100% online e flexível.
             </p>
           </div>
         </div>
