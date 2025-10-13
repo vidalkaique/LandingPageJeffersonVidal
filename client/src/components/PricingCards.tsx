@@ -205,10 +205,18 @@ export default function PricingCards() {
                     {(() => {
                       const prices = calculatePrices(plan.price, plan.name);
                       return (
-                        <div className="text-center">
-                          <p className="text-2xl md:text-3xl font-bold font-montserrat text-white">
-                            {prices.pix} <span className="text-green-400 text-lg">PIX</span> | {prices.card} <span className="text-blue-400 text-lg">Cartão</span>
-                          </p>
+                        <div className="text-center space-y-1">
+                          <div className="flex justify-center items-center gap-4">
+                            <div className="text-center">
+                              <p className="text-2xl md:text-3xl font-bold font-montserrat text-green-400">{prices.pix}</p>
+                              <p className="text-xs text-green-300 uppercase tracking-wide">PIX</p>
+                            </div>
+                            <div className="text-gray-400 text-xl">|</div>
+                            <div className="text-center">
+                              <p className="text-2xl md:text-3xl font-bold font-montserrat text-blue-400">{prices.card}</p>
+                              <p className="text-xs text-blue-300 uppercase tracking-wide">Cartão</p>
+                            </div>
+                          </div>
                         </div>
                       );
                     })()} 
@@ -265,10 +273,18 @@ export default function PricingCards() {
                     {(() => {
                       const prices = calculatePrices(plan.price, plan.name);
                       return (
-                        <div className="text-center">
-                          <p className="text-2xl md:text-3xl font-bold font-montserrat text-white">
-                            {prices.pix} <span className="text-green-400 text-lg">PIX</span> | {prices.card} <span className="text-blue-400 text-lg">Cartão</span>
-                          </p>
+                        <div className="text-center space-y-1">
+                          <div className="flex justify-center items-center gap-4">
+                            <div className="text-center">
+                              <p className="text-2xl md:text-3xl font-bold font-montserrat text-green-400">{prices.pix}</p>
+                              <p className="text-xs text-green-300 uppercase tracking-wide">PIX</p>
+                            </div>
+                            <div className="text-gray-400 text-xl">|</div>
+                            <div className="text-center">
+                              <p className="text-2xl md:text-3xl font-bold font-montserrat text-blue-400">{prices.card}</p>
+                              <p className="text-xs text-blue-300 uppercase tracking-wide">Cartão</p>
+                            </div>
+                          </div>
                         </div>
                       );
                     })()} 
