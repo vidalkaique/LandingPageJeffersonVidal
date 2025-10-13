@@ -284,12 +284,34 @@ export default function AdminPlanos() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-gray-400 block mb-1">Preço</label>
+                    <label className="text-sm text-gray-400 block mb-1">Preço (Legado)</label>
                     <Input
                       value={plano.preco}
                       onChange={(e) => updatePlano(index, 'preco', e.target.value)}
                       className="bg-zinc-800 border-zinc-600 text-white"
                       placeholder="Ex: R$200,00"
+                    />
+                  </div>
+                </div>
+
+                {/* Preços PIX e Cartão */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm text-green-400 block mb-1">Preço PIX</label>
+                    <Input
+                      value={plano.preco_pix || ''}
+                      onChange={(e) => updatePlano(index, 'preco_pix', e.target.value)}
+                      className="bg-zinc-800 border-zinc-600 text-white"
+                      placeholder="Ex: R$ 200"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-blue-400 block mb-1">Preço Cartão</label>
+                    <Input
+                      value={plano.preco_cartao || ''}
+                      onChange={(e) => updatePlano(index, 'preco_cartao', e.target.value)}
+                      className="bg-zinc-800 border-zinc-600 text-white"
+                      placeholder="Ex: R$ 210"
                     />
                   </div>
                 </div>

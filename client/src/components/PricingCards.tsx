@@ -106,10 +106,17 @@ export default function PricingCards() {
   };
 
   // Função para obter preços específicos PIX e Cartão
-  const calculatePrices = (originalPrice: string, planName: string) => {
-    const name = planName.toLowerCase();
+  const calculatePrices = (originalPrice: string, planName: string, plan?: any) => {
+    // Se o plano tem preços PIX/Cartão do banco, usa eles
+    if (plan?.preco_pix && plan?.preco_cartao) {
+      return {
+        pix: plan.preco_pix,
+        card: plan.preco_cartao
+      };
+    }
     
-    // Preços específicos definidos
+    // Fallback para preços hardcoded (caso o banco não tenha os dados ainda)
+    const name = planName.toLowerCase();
     const priceMap = {
       'mensal': { pix: 'R$ 200', card: 'R$ 210' },
       'bimestral': { pix: 'R$ 350', card: 'R$ 365' },
@@ -118,8 +125,7 @@ export default function PricingCards() {
       'presencial-5x': { pix: 'R$ 900', card: 'R$ 935' }
     };
     
-    // Determina o tipo de plano
-    let planType = 'mensal'; // fallback
+    let planType = 'mensal';
     if (name.includes('mensal')) planType = 'mensal';
     else if (name.includes('bimestral')) planType = 'bimestral';
     else if (name.includes('trimestral')) planType = 'trimestral';
@@ -203,7 +209,7 @@ export default function PricingCards() {
                   </h4>
                   <div className="space-y-2">
                     {(() => {
-                      const prices = calculatePrices(plan.price, plan.name);
+                      const prices = calculatePrices(plan.price, plan.name, plan);
                       return (
                         <div className="text-center space-y-1">
                           <div className="flex justify-center items-center gap-4">
@@ -271,7 +277,7 @@ export default function PricingCards() {
                   </h4>
                   <div className="space-y-2">
                     {(() => {
-                      const prices = calculatePrices(plan.price, plan.name);
+                      const prices = calculatePrices(plan.price, plan.name, plan);
                       return (
                         <div className="text-center space-y-1">
                           <div className="flex justify-center items-center gap-4">

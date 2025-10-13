@@ -6,6 +6,8 @@ export interface PlanoItem {
   tipo: 'online' | 'presencial';
   nome: string;
   preco: string;
+  preco_pix?: string;
+  preco_cartao?: string;
   periodo?: string;
   features: string[];
   link?: string;
@@ -17,6 +19,8 @@ export interface PlanoFormatado {
   id?: string;
   name: string;
   price: string;
+  preco_pix?: string;
+  preco_cartao?: string;
   period?: string;
   features: string[];
   link?: string;
