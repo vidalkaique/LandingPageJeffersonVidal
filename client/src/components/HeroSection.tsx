@@ -45,7 +45,7 @@ export default function HeroSection() {
           {/* Logo Jefferson - Entre a foto e o texto */}
           <div className="flex justify-center items-center py-1 order-2 lg:order-3 lg:absolute lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:z-20">
             <img 
-              src="/img/logodejeffvidal.png" 
+              src="/img/nova_logo_jeffpersonal.png" 
               alt="Logo Jefferson Vidal"
               className="h-12 md:h-16 lg:h-20 w-auto object-contain drop-shadow-lg cursor-pointer hover:scale-105 transition-transform select-none"
               onClick={() => {

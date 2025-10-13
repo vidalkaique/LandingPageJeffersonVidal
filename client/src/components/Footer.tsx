@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 text-center space-y-6">
         <div className="flex justify-center">
           <img 
-            src="/img/logodejeffvidal.png" 
+            src="/img/nova_logo_jeffpersonal.png" 
             alt="Logo Jefferson Vidal"
             className="h-8 md:h-10 w-auto object-contain cursor-pointer hover:scale-105 transition-transform select-none"
             onClick={() => {

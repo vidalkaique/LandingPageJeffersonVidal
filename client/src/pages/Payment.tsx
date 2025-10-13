@@ -111,7 +111,7 @@ export default function Payment() {
           
           <div className="mb-6">
             <img 
-              src="/img/logodejeffvidal.png" 
+              src="/img/nova_logo_jeffpersonal.png" 
               alt="Jefferson Vidal Logo"
               className="h-16 w-auto mx-auto mb-4 select-none"
               onContextMenu={(e) => e.preventDefault()}
