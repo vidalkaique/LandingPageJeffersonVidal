@@ -214,13 +214,13 @@ export default function PricingCards() {
                         <div className="text-center space-y-1">
                           <div className="flex justify-center items-center gap-4">
                             <div className="text-center">
-                              <p className="text-2xl md:text-3xl font-bold font-montserrat text-green-400">{prices.pix}</p>
-                              <p className="text-xs text-green-300 uppercase tracking-wide">PIX</p>
+                              <p className="text-3xl md:text-4xl font-bold font-montserrat text-green-400">{prices.pix}</p>
+                              <p className="text-sm text-green-300 uppercase tracking-wide">PIX</p>
                             </div>
-                            <div className="text-gray-400 text-xl">|</div>
+                            <div className="text-gray-400 text-2xl">|</div>
                             <div className="text-center">
-                              <p className="text-2xl md:text-3xl font-bold font-montserrat text-blue-400">{prices.card}</p>
-                              <p className="text-xs text-blue-300 uppercase tracking-wide">Cartão</p>
+                              <p className="text-3xl md:text-4xl font-bold font-montserrat text-blue-400">{prices.card}</p>
+                              <p className="text-sm text-blue-300 uppercase tracking-wide">Cartão</p>
                             </div>
                           </div>
                         </div>
@@ -282,13 +282,13 @@ export default function PricingCards() {
                         <div className="text-center space-y-1">
                           <div className="flex justify-center items-center gap-4">
                             <div className="text-center">
-                              <p className="text-2xl md:text-3xl font-bold font-montserrat text-green-400">{prices.pix}</p>
-                              <p className="text-xs text-green-300 uppercase tracking-wide">PIX</p>
+                              <p className="text-3xl md:text-4xl font-bold font-montserrat text-green-400">{prices.pix}</p>
+                              <p className="text-sm text-green-300 uppercase tracking-wide">PIX</p>
                             </div>
-                            <div className="text-gray-400 text-xl">|</div>
+                            <div className="text-gray-400 text-2xl">|</div>
                             <div className="text-center">
-                              <p className="text-2xl md:text-3xl font-bold font-montserrat text-blue-400">{prices.card}</p>
-                              <p className="text-xs text-blue-300 uppercase tracking-wide">Cartão</p>
+                              <p className="text-3xl md:text-4xl font-bold font-montserrat text-blue-400">{prices.card}</p>
+                              <p className="text-sm text-blue-300 uppercase tracking-wide">Cartão</p>
                             </div>
                           </div>
                         </div>
