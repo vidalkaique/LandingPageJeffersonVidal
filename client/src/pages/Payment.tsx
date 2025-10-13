@@ -148,7 +148,6 @@ export default function Payment() {
           >
             <QrCode className="w-6 h-6 mr-3" />
             Pagar com PIX
-            <span className="ml-auto text-sm opacity-90">Aprovação instantânea</span>
           </Button>
 
           {/* Credit Card Button */}
@@ -159,7 +158,6 @@ export default function Payment() {
           >
             <CreditCard className="w-6 h-6 mr-3" />
             Pagar com Cartão
-            <span className="ml-auto text-sm opacity-90">Parcelamento disponível</span>
           </Button>
         </div>
 

@@ -105,6 +105,30 @@ export default function PricingCards() {
     return 'mensal'; // fallback
   };
 
+  // Função para obter preços específicos PIX e Cartão
+  const calculatePrices = (originalPrice: string, planName: string) => {
+    const name = planName.toLowerCase();
+    
+    // Preços específicos definidos
+    const priceMap = {
+      'mensal': { pix: 'R$ 200', card: 'R$ 210' },
+      'bimestral': { pix: 'R$ 350', card: 'R$ 365' },
+      'trimestral': { pix: 'R$ 500', card: 'R$ 520' },
+      'presencial-3x': { pix: 'R$ 700', card: 'R$ 727' },
+      'presencial-5x': { pix: 'R$ 900', card: 'R$ 935' }
+    };
+    
+    // Determina o tipo de plano
+    let planType = 'mensal'; // fallback
+    if (name.includes('mensal')) planType = 'mensal';
+    else if (name.includes('bimestral')) planType = 'bimestral';
+    else if (name.includes('trimestral')) planType = 'trimestral';
+    else if (name.includes('3x') || name.includes('3 x')) planType = 'presencial-3x';
+    else if (name.includes('5x') || name.includes('5 x')) planType = 'presencial-5x';
+    
+    return priceMap[planType] || { pix: originalPrice, card: originalPrice };
+  };
+
   useEffect(() => {
     const loadPlanos = async () => {
       try {
@@ -178,7 +202,16 @@ export default function PricingCards() {
                     {plan.name}
                   </h4>
                   <div className="space-y-2">
-                    <p className="text-3xl md:text-4xl font-bold font-montserrat text-white">{plan.price}</p>
+                    {(() => {
+                      const prices = calculatePrices(plan.price, plan.name);
+                      return (
+                        <div className="text-center">
+                          <p className="text-2xl md:text-3xl font-bold font-montserrat text-white">
+                            {prices.pix} <span className="text-green-400 text-lg">PIX</span> | {prices.card} <span className="text-blue-400 text-lg">Cartão</span>
+                          </p>
+                        </div>
+                      );
+                    })()} 
                   </div>
                 </CardHeader>
                 
@@ -229,7 +262,16 @@ export default function PricingCards() {
                     {plan.name}
                   </h4>
                   <div className="space-y-2">
-                    <p className="text-3xl md:text-4xl font-bold font-montserrat text-white">{plan.price}</p>
+                    {(() => {
+                      const prices = calculatePrices(plan.price, plan.name);
+                      return (
+                        <div className="text-center">
+                          <p className="text-2xl md:text-3xl font-bold font-montserrat text-white">
+                            {prices.pix} <span className="text-green-400 text-lg">PIX</span> | {prices.card} <span className="text-blue-400 text-lg">Cartão</span>
+                          </p>
+                        </div>
+                      );
+                    })()} 
                     {plan.period && (
                       <p className="text-sm text-gray-400">{plan.period}</p>
                     )}
