@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'wouter';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -91,6 +92,18 @@ function HorariosModal() {
 export default function PricingCards() {
   const [planos, setPlanos] = useState<PlanosAgrupados | null>(null);
   const [loadingPlanos, setLoadingPlanos] = useState(true);
+  const [, setLocation] = useLocation();
+
+  // Mapeamento dos nomes dos planos para os parâmetros da URL
+  const getPlanParam = (planName: string): string => {
+    const name = planName.toLowerCase();
+    if (name.includes('mensal')) return 'mensal';
+    if (name.includes('bimestral')) return 'bimestral';
+    if (name.includes('trimestral')) return 'trimestral';
+    if (name.includes('3x') || name.includes('3 x')) return 'presencial-3x';
+    if (name.includes('5x') || name.includes('5 x')) return 'presencial-5x';
+    return 'mensal'; // fallback
+  };
 
   useEffect(() => {
     const loadPlanos = async () => {
@@ -181,7 +194,10 @@ export default function PricingCards() {
                 <CardFooter className="pb-6 mt-auto">
                   <Button
                     className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/30"
-                    onClick={() => window.open(plan.link, '_blank')}
+                    onClick={() => {
+                      const planParam = getPlanParam(plan.name);
+                      setLocation(`/payment?plan=${planParam}`);
+                    }}
                     data-testid={`button-online-${index}`}
                   >
                     QUERO ESSE PLANO
@@ -261,7 +277,8 @@ export default function PricingCards() {
                         if (plan.link === '#contato') {
                           window.open('https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20plano%20' + encodeURIComponent(plan.name), '_blank');
                         } else {
-                          window.open(plan.link, '_blank');
+                          const planParam = getPlanParam(plan.name);
+                          setLocation(`/payment?plan=${planParam}`);
                         }
                       }}
                       data-testid={`button-presencial-${index}`}
