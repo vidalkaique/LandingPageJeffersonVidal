@@ -111,9 +111,12 @@ export default function Payment() {
           
           <div className="mb-6">
             <img 
-              src="/img/logo_jeffersonvidal.png" 
+              src="/img/logodejeffvidal.png" 
               alt="Jefferson Vidal Logo"
-              className="h-16 w-auto mx-auto mb-4"
+              className="h-16 w-auto mx-auto mb-4 select-none"
+              onContextMenu={(e) => e.preventDefault()}
+              onDragStart={(e) => e.preventDefault()}
+              draggable={false}
             />
           </div>
           
