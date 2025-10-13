@@ -83,6 +83,8 @@ export class PlanosService {
           .update({
             nome: plano.nome,
             preco: plano.preco,
+            preco_pix: plano.preco_pix,
+            preco_cartao: plano.preco_cartao,
             periodo: plano.periodo,
             features: plano.features,
             link: plano.link,
