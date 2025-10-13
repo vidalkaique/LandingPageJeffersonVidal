@@ -327,17 +327,7 @@ export default function AdminPlanos() {
                   />
                 </div>
 
-                {/* Link WhatsApp */}
-                <div>
-                  <label className="text-sm text-gray-400 block mb-1">Link WhatsApp</label>
-                  <Textarea
-                    value={plano.link || ''}
-                    onChange={(e) => updatePlano(index, 'link', e.target.value)}
-                    className="bg-zinc-800 border-zinc-600 text-white"
-                    placeholder="https://wa.me/5511999999999?text=..."
-                    rows={2}
-                  />
-                </div>
+
 
                 {/* Features */}
                 <div>
