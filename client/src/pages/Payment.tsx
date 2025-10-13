@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useLocation, useSearch } from 'wouter';
 import { Button } from "@/components/ui/button";
 import { CreditCard, QrCode, ArrowLeft } from 'lucide-react';
 
@@ -58,21 +58,23 @@ const paymentPlans: Record<string, PlanData> = {
 };
 
 export default function Payment() {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
+  const search = useSearch();
   const [selectedPlan, setSelectedPlan] = useState<PlanData | null>(null);
   const [planKey, setPlanKey] = useState<string>('');
 
   useEffect(() => {
-    const plan = searchParams.get('plan');
+    // Parse URL search params manually
+    const urlParams = new URLSearchParams(search);
+    const plan = urlParams.get('plan');
     if (plan && paymentPlans[plan]) {
       setSelectedPlan(paymentPlans[plan]);
       setPlanKey(plan);
     } else {
       // Se não há plano válido, redireciona para home
-      navigate('/');
+      setLocation('/');
     }
-  }, [searchParams, navigate]);
+  }, [search, setLocation]);
 
   const handlePayment = (method: 'cartao' | 'pix') => {
     if (selectedPlan) {
@@ -81,7 +83,7 @@ export default function Payment() {
   };
 
   const goBack = () => {
-    navigate('/');
+    setLocation('/');
   };
 
   if (!selectedPlan) {
