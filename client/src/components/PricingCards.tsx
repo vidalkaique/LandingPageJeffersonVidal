@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { HorariosService, type HorariosAgrupados } from "@/lib/supabase";
 import { PlanosService, type PlanosAgrupados } from "@/lib/planos";
-import { Check, Clock, Calendar } from "lucide-react";
+import { Check, Clock, Calendar, Loader2 } from "lucide-react";
 import { usePayments } from '@/hooks/usePayments';
 import { toast } from '@/hooks/use-toast';
 
@@ -184,14 +184,14 @@ export default function PricingCards() {
         console.error('Erro ao carregar planos:', error);
         setPlanos(PlanosService.getPlanosPadrao());
       } finally {
-        setLoadingPlanos(false);
+        setLoading(false);
       }
     };
     
     loadPlanos();
   }, []);
 
-  if (loadingPlanos) {
+  if (loading) {
     return (
       <section id="planos" className="bg-gradient-to-b from-black via-zinc-900 to-black py-24 relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
