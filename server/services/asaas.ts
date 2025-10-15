@@ -11,13 +11,13 @@ import type {
 import { ASAAS_CONFIG, BILLING_TYPES } from '../../shared/asaas-types';
 
 export class AsaasService {
-  private static readonly API_KEY = process.env.ASAAS_API_KEY;
+  private static readonly API_KEY = process.env.ASAAS_API_KEY || 'placeholder-key';
   private static readonly BASE_URL = process.env.NODE_ENV === 'production' 
     ? ASAAS_CONFIG.BASE_URL 
     : ASAAS_CONFIG.SANDBOX_URL;
 
   private static validateApiKey(): void {
-    if (!this.API_KEY) {
+    if (!process.env.ASAAS_API_KEY) {
       throw new Error('ASAAS_API_KEY não configurada nas variáveis de ambiente');
     }
   }

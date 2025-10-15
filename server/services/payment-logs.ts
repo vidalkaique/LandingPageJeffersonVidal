@@ -6,12 +6,16 @@
 import { createClient } from '@supabase/supabase-js';
 import type { PaymentLogEntry, PaymentStats } from '../../shared/asaas-types';
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL || '';
-const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || '';
+// Configuração Supabase - com fallback para evitar erro no build
+const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key';
 
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Variáveis de ambiente Supabase não configuradas');
-}
+// Validação apenas em runtime, não no build
+const validateSupabaseConfig = () => {
+  if (!process.env.VITE_SUPABASE_URL || !process.env.VITE_SUPABASE_ANON_KEY) {
+    throw new Error('Variáveis de ambiente Supabase não configuradas');
+  }
+};
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -26,6 +30,7 @@ export class PaymentLogsService {
     external_reference?: string;
   }): Promise<PaymentLogEntry> {
     try {
+      validateSupabaseConfig();
       const { data: logEntry, error } = await supabase
         .from('payment_logs')
         .insert([{
