@@ -113,7 +113,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       asaasRequestData.billingType = 'PIX';
     } else if (paymentType === 'cartao') {
       asaasRequestData.billingType = 'CREDIT_CARD';
-      asaasRequestData.maxInstallmentCount = 2; // Máximo 2x conforme solicitado
+      asaasRequestData.maxInstallmentCount = 1; // Apenas à vista
     }
 
     const asaasResponse = await fetch(`${ASAAS_BASE_URL}/paymentLinks`, {
