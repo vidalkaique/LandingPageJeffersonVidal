@@ -98,6 +98,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       name: `${plano.nome} - Jefferson Personal`,
       description: `Pagamento via ${paymentType.toUpperCase()} - Treino personalizado`,
       value: valor,
+      chargeType: 'DETACHED', // Tipo de cobrança obrigatório
+      dueDateLimitDays: 1, // 1 dia útil para vencimento
       callback: {
         successUrl: SUCCESS_REDIRECT_URL,
         autoRedirect: true
