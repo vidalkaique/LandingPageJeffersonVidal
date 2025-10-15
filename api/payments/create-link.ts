@@ -93,25 +93,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const externalReference = `${planoId}_${paymentType}_${timestamp}`;
 
     // 4. Criar link de pagamento no Asaas
-    // Gerar link específico conforme o tipo selecionado
-    const billingType = paymentType === 'pix' ? 'PIX' : 'CREDIT_CARD';
-    
-    const asaasRequestData = {
+    // Para links de pagamento, usar estrutura correta da API
+    const asaasRequestData: any = {
       name: `${plano.nome} - Jefferson Personal`,
       description: `Pagamento via ${paymentType.toUpperCase()} - Treino personalizado`,
       value: valor,
-      billingType,
-      chargeType: 'DETACHED',
       callback: {
         successUrl: SUCCESS_REDIRECT_URL,
         autoRedirect: true
       },
       externalReference,
-      notificationEnabled: true,
-      // Só incluir maxInstallmentCount para cartão
-      ...(paymentType === 'cartao' && { maxInstallmentCount: 12 })
-      // Removido dueDateLimitDays - não é obrigatório se não especificar subscriptionCycle
+      notificationEnabled: true
     };
+
+    // Configurações específicas por tipo de pagamento
+    if (paymentType === 'pix') {
+      asaasRequestData.billingType = 'PIX';
+    } else if (paymentType === 'cartao') {
+      asaasRequestData.billingType = 'CREDIT_CARD';
+      asaasRequestData.maxInstallmentCount = 2; // Máximo 2x conforme solicitado
+    }
 
     const asaasResponse = await fetch(`${ASAAS_BASE_URL}/paymentLinks`, {
       method: 'POST',
