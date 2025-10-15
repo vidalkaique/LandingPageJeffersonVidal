@@ -6,6 +6,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { HorariosService, type HorariosAgrupados } from "@/lib/supabase";
 import { PlanosService, type PlanosAgrupados } from "@/lib/planos";
 import { Check, Clock, Calendar } from "lucide-react";
+import { usePayments } from '@/hooks/usePayments';
+import { toast } from '@/hooks/use-toast';
 
 interface TimeSlot {
   start: string;
@@ -90,9 +92,11 @@ function HorariosModal() {
 }
 
 export default function PricingCards() {
-  const [planos, setPlanos] = useState<PlanosAgrupados | null>(null);
-  const [loadingPlanos, setLoadingPlanos] = useState(true);
+  const [planos, setPlanos] = useState<PlanosAgrupados>({ online: [], presencial: [] });
+  const [loading, setLoading] = useState(true);
   const [, setLocation] = useLocation();
+  const { createPaymentLink, isLoading: paymentLoading } = usePayments();
+  const [loadingPlanId, setLoadingPlanId] = useState<string | null>(null);
 
   // Mapeamento dos nomes dos planos para os parâmetros da URL
   const getPlanParam = (planName: string): string => {
@@ -133,6 +137,42 @@ export default function PricingCards() {
     else if (name.includes('5x') || name.includes('5 x')) planType = 'presencial-5x';
     
     return priceMap[planType] || { pix: originalPrice, card: originalPrice };
+  };
+
+  // Função para lidar com pagamentos via Asaas
+  const handlePayment = async (plan: any, paymentType: 'pix' | 'cartao') => {
+    if (!plan.id) {
+      toast({
+        title: "Erro",
+        description: "ID do plano não encontrado",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setLoadingPlanId(`${plan.id}_${paymentType}`);
+    
+    try {
+      const paymentUrl = await createPaymentLink(plan.id, paymentType);
+      
+      // Redirecionar para o link de pagamento do Asaas
+      window.open(paymentUrl, '_blank');
+      
+      toast({
+        title: "Link criado com sucesso!",
+        description: `Redirecionando para pagamento via ${paymentType.toUpperCase()}...`
+      });
+      
+    } catch (error) {
+      console.error('Erro ao criar link de pagamento:', error);
+      toast({
+        title: "Erro ao criar pagamento",
+        description: error instanceof Error ? error.message : "Tente novamente em alguns instantes",
+        variant: "destructive"
+      });
+    } finally {
+      setLoadingPlanId(null);
+    }
   };
 
   useEffect(() => {
@@ -238,17 +278,50 @@ export default function PricingCards() {
                   ))}
                 </CardContent>
                 
-                <CardFooter className="pb-6 mt-auto">
-                  <Button
-                    className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/30"
-                    onClick={() => {
-                      const planParam = getPlanParam(plan.name);
-                      setLocation(`/payment?plan=${planParam}`);
-                    }}
-                    data-testid={`button-online-${index}`}
-                  >
-                    QUERO ESSE PLANO
-                  </Button>
+                <CardFooter className="pb-6 mt-auto space-y-3">
+                  {(() => {
+                    const prices = calculatePrices(plan.price, plan.name, plan);
+                    const isLoadingPix = loadingPlanId === `${plan.id}_pix`;
+                    const isLoadingCard = loadingPlanId === `${plan.id}_cartao`;
+                    
+                    return (
+                      <div className="w-full space-y-2">
+                        {/* Botão PIX */}
+                        <Button
+                          className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-green-600 text-white hover:bg-green-700 hover:shadow-green-600/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                          onClick={() => handlePayment(plan, 'pix')}
+                          disabled={isLoadingPix || isLoadingCard}
+                          data-testid={`button-pix-online-${index}`}
+                        >
+                          {isLoadingPix ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Criando link...
+                            </>
+                          ) : (
+                            `PAGAR PIX ${prices.pix}`
+                          )}
+                        </Button>
+                        
+                        {/* Botão Cartão */}
+                        <Button
+                          className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-blue-600 text-white hover:bg-blue-700 hover:shadow-blue-600/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                          onClick={() => handlePayment(plan, 'cartao')}
+                          disabled={isLoadingPix || isLoadingCard}
+                          data-testid={`button-card-online-${index}`}
+                        >
+                          {isLoadingCard ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Criando link...
+                            </>
+                          ) : (
+                            `PAGAR CARTÃO ${prices.card}`
+                          )}
+                        </Button>
+                      </div>
+                    );
+                  })()} 
                 </CardFooter>
               </Card>
             ))}
@@ -334,21 +407,50 @@ export default function PricingCards() {
                       </DialogContent>
                     </Dialog>
                     
-                    {/* Botão Principal */}
-                    <Button
-                      className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/30"
-                      onClick={() => {
-                        if (plan.link === '#contato') {
-                          window.open('https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20plano%20' + encodeURIComponent(plan.name), '_blank');
-                        } else {
-                          const planParam = getPlanParam(plan.name);
-                          setLocation(`/payment?plan=${planParam}`);
-                        }
-                      }}
-                      data-testid={`button-presencial-${index}`}
-                    >
-                      QUERO ESSE PLANO
-                    </Button>
+                    {/* Botões PIX e Cartão */}
+                    {(() => {
+                      const prices = calculatePrices(plan.price, plan.name, plan);
+                      const isLoadingPix = loadingPlanId === `${plan.id}_pix`;
+                      const isLoadingCard = loadingPlanId === `${plan.id}_cartao`;
+                      
+                      return (
+                        <div className="space-y-2">
+                          {/* Botão PIX */}
+                          <Button
+                            className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-green-600 text-white hover:bg-green-700 hover:shadow-green-600/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                            onClick={() => handlePayment(plan, 'pix')}
+                            disabled={isLoadingPix || isLoadingCard}
+                            data-testid={`button-pix-presencial-${index}`}
+                          >
+                            {isLoadingPix ? (
+                              <>
+                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                Criando link...
+                              </>
+                            ) : (
+                              `PAGAR PIX ${prices.pix}`
+                            )}
+                          </Button>
+                          
+                          {/* Botão Cartão */}
+                          <Button
+                            className="w-full rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wider min-h-[44px] !inline-flex !items-center !justify-center whitespace-nowrap transform hover:scale-105 transition-all duration-300 shadow-lg bg-blue-600 text-white hover:bg-blue-700 hover:shadow-blue-600/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                            onClick={() => handlePayment(plan, 'cartao')}
+                            disabled={isLoadingPix || isLoadingCard}
+                            data-testid={`button-card-presencial-${index}`}
+                          >
+                            {isLoadingCard ? (
+                              <>
+                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                Criando link...
+                              </>
+                            ) : (
+                              `PAGAR CARTÃO ${prices.card}`
+                            )}
+                          </Button>
+                        </div>
+                      );
+                    })()}
                   </div>
                 </CardFooter>
               </Card>
