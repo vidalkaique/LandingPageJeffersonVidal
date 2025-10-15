@@ -88,15 +88,44 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    // 3. Gerar referência externa única
+    // 3. Mapear nome do plano para o Asaas
+    const getAsaasPlanName = (planoNome: string): string => {
+      const nomeFormatado = planoNome.toLowerCase();
+      
+      // Planos Online
+      if (nomeFormatado.includes('mensal')) {
+        return 'Consultoria Online - Mensal';
+      }
+      if (nomeFormatado.includes('bimestral')) {
+        return 'Consultoria Online - Bimestral';
+      }
+      if (nomeFormatado.includes('trimestral')) {
+        return 'Consultoria Online - Trimestral';
+      }
+      
+      // Planos Presenciais
+      if (nomeFormatado.includes('3x') || nomeFormatado.includes('3 x')) {
+        return 'Acompanhamento Presencial - 3x Semana';
+      }
+      if (nomeFormatado.includes('5x') || nomeFormatado.includes('5 x')) {
+        return 'Acompanhamento Presencial - 5x Semana';
+      }
+      
+      // Fallback - usar nome original
+      return plano.nome;
+    };
+
+    const asaasNomePlano = getAsaasPlanName(plano.nome);
+
+    // 4. Gerar referência externa única
     const timestamp = Date.now();
     const externalReference = `${planoId}_${paymentType}_${timestamp}`;
 
-    // 4. Criar link de pagamento no Asaas
+    // 5. Criar link de pagamento no Asaas
     // Para links de pagamento, usar estrutura correta da API
     const asaasRequestData: any = {
-      name: `${plano.nome} - Jefferson Personal`,
-      description: `Pagamento via ${paymentType.toUpperCase()} - Treino personalizado`,
+      name: asaasNomePlano,
+      description: `Pagamento via ${paymentType.toUpperCase()} - Treino personalizado com Jefferson Vidal`,
       value: valor,
       chargeType: 'DETACHED', // Tipo de cobrança obrigatório
       dueDateLimitDays: 1, // 1 dia útil para vencimento
